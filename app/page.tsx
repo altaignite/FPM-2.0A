@@ -1,95 +1,46 @@
 'use client'
 
-import {
-  Activity,
-  ArrowRight,
-  Bell,
-  ChevronDown,
-  ChevronRight,
-  CircleHelp,
-  CircleUserRound,
-  CreditCard,
-  Grid2X2,
-  Headphones,
-  House,
-  Laptop,
-  LockKeyhole,
-  Menu,
-  MoreHorizontal,
-  PanelLeft,
-  Plus,
-  RefreshCw,
-  Search,
-  Server,
-  Settings,
-  SlidersHorizontal,
-  Wrench,
-  X,
-  Zap,
-} from 'lucide-react'
 import { useState } from 'react'
+import {
+  Activity, ArrowDownRight, ArrowRight, Bell, CheckCircle2, ChevronRight,
+  CircleHelp, Clock3, CreditCard, FileText, Grid2X2, Headphones, House,
+  Menu, Plus, Search, Settings, Ticket, Users, WalletCards, X, Zap,
+} from 'lucide-react'
 
-const domains = [
-  { name: 'Sublance.digital', plan: 'Protection Plan : Full Privacy', color: '#a933ac', icon: '∞', action: 'Change Protection' },
-  { name: 'Domora-Design.agency', plan: '', color: '#6258e8', icon: '△', action: 'Set up' },
-  { name: 'Merava.tech', plan: 'Protection Plan : None', color: '#111827', icon: '⬢', action: 'Upgrade Protection' },
-  { name: 'Cloudover.com', plan: 'Protection Plan : None', color: '#ed8b42', icon: '◆', action: 'Upgrade Protection' },
+const nav = [
+  { label: 'Overview', icon: House },
+  { label: 'Subscriptions', icon: CreditCard },
+  { label: 'Tasks', icon: CheckCircle2 },
+  { label: 'Credits', icon: Zap },
+  { label: 'Support tickets', icon: Ticket },
+  { label: 'Invoices', icon: FileText },
 ]
 
-const groups = [
-  { label: 'General', items: [{ icon: House, label: 'Dashboard', active: true }, { icon: CircleUserRound, label: 'Clients', arrow: true }] },
-  { label: 'Notifications', items: [{ icon: Bell, label: 'Activity Feed', arrow: true }, { icon: Activity, label: 'Pending Renewals', arrow: true }] },
-  { label: 'Services', items: [{ icon: GlobeIcon, label: 'Domain', arrow: true }, { icon: Server, label: 'Server', arrow: true }, { icon: Laptop, label: 'Web Hosting', arrow: true }] },
-  { label: 'Others', items: [{ icon: CreditCard, label: 'Billing', arrow: true }, { icon: Headphones, label: 'Support', arrow: true }, { icon: Wrench, label: 'Tools', arrow: true }, { icon: Activity, label: 'Statistics', arrow: true }, { icon: PanelLeft, label: 'Workspace', arrow: true }] },
+const tasks = [
+  { title: 'SEO content brief and keyword research', type: 'SEO', status: 'In progress', hours: '4.5 hrs', date: 'Today' },
+  { title: 'Landing page design revisions', type: 'Design', status: 'In review', hours: '3 hrs', date: 'Yesterday' },
+  { title: 'Paid social campaign setup', type: 'Paid media', status: 'Completed', hours: '6 hrs', date: 'Mar 18, 2025' },
+  { title: 'Monthly performance report', type: 'Reporting', status: 'Completed', hours: '2 hrs', date: 'Mar 16, 2025' },
 ]
 
-function GlobeIcon(props: React.ComponentProps<typeof CircleUserRound>) { return <CircleUserRound {...props} /> }
-
-function Logo() {
-  return <div className="logo"><span className="logo-mark">▽</span><span>Zygenet</span></div>
+function Brand() {
+  return <div className="brand"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_1712-DPupM5FLesuxf6YstfDbnd9g8opHU7.png" alt="First Person Marketing" /><span>FIRST PERSON<br /><b>MARKETING</b></span></div>
 }
 
-function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
-  return <>
-    {open && <button className="sidebar-overlay" aria-label="Close navigation" onClick={onClose} />}
-    <aside className={`sidebar ${open ? 'sidebar-open' : ''}`}>
-      <div className="sidebar-top"><Logo /><button className="mobile-close" onClick={onClose} aria-label="Close navigation"><X size={19} /></button></div>
-      <nav className="sidebar-nav">
-        {groups.map((group) => <div className="nav-group" key={group.label}>
-          <p className="group-label">{group.label}</p>
-          {group.items.map(({ icon: Icon, label, active, arrow }) => <button className={`nav-item ${active ? 'active' : ''}`} key={label}><Icon size={17} strokeWidth={1.5} /><span>{label}</span>{arrow && <ChevronRight className="nav-arrow" size={15} />}</button>)}
-        </div>)}
-      </nav>
-      <div className="sidebar-bottom"><button className="nav-item"><SlidersHorizontal size={17} strokeWidth={1.5} /><span>Preferences</span></button><button className="nav-item"><Settings size={17} strokeWidth={1.5} /><span>Settings</span></button></div>
-    </aside>
-  </>
+function Sidebar({ open, close }: { open: boolean; close: () => void }) {
+  return <><button className={`overlay ${open ? 'show' : ''}`} onClick={close} aria-label="Close navigation" /><aside className={`sidebar ${open ? 'open' : ''}`}><div className="side-head"><Brand /><button className="close" onClick={close} aria-label="Close navigation"><X size={20} /></button></div><p className="workspace-label">WORKSPACE</p><div className="workspace"><span className="workspace-mark">FP</span><span>First Person Marketing</span><ChevronRight size={15} /></div><nav>{nav.map(({ label, icon: Icon }, index) => <button className={`nav-link ${index === 0 ? 'selected' : ''}`} key={label}><Icon size={18} /><span>{label}</span>{label === 'Support tickets' && <em>2</em>}</button>)}</nav><div className="side-footer"><button className="nav-link"><CircleHelp size={18} /><span>Help center</span></button><button className="nav-link"><Settings size={18} /><span>Settings</span></button><div className="user"><span className="avatar">JD</span><div><strong>Jane Doe</strong><small>Admin</small></div><ChevronRight size={15} /></div></div></aside></>
 }
 
 function Header({ onMenu }: { onMenu: () => void }) {
-  return <header className="header">
-    <button className="menu-button" onClick={onMenu} aria-label="Open navigation"><Menu size={21} /></button>
-    <div className="search"><Search size={17} /><span>Search...</span></div>
-    <div className="header-actions"><span className="help">Help Center</span><span className="divider" /><Grid2X2 size={20} /><span className="cart">⌑</span><span className="divider" /><button className="round-button"><Bell size={17} /><i /></button><div className="avatar">JS</div><ChevronDown size={14} /></div>
-  </header>
+  return <header className="header"><button className="menu" onClick={onMenu} aria-label="Open navigation"><Menu size={21} /></button><div className="search"><Search size={17} /><span>Search tasks, invoices, tickets...</span></div><div className="header-right"><button className="icon-button"><Grid2X2 size={19} /></button><button className="icon-button notification"><Bell size={19} /><i /></button><span className="header-user">Jane Doe</span><span className="avatar small">JD</span></div></header>
 }
 
-function DomainCard({ domain }: { domain: typeof domains[number] }) {
-  return <div className="domain-row"><div className="domain-name"><span className="domain-icon" style={{ color: domain.color }}>{domain.icon}</span><div><strong>{domain.name}</strong>{domain.plan && <small>{domain.plan}</small>}</div></div><div className="domain-actions"><span className="dns">DNS</span><button>Manage</button><button className={domain.action === 'Set up' ? 'setup' : ''}>{domain.action}{domain.action === 'Set up' && <ChevronDown size={14} />}</button></div></div>
+function Stat({ title, value, detail, icon: Icon, accent }: { title: string; value: string; detail: string; icon: typeof WalletCards; accent: string }) {
+  return <div className="stat card"><div className={`stat-icon ${accent}`}><Icon size={19} /></div><div><p>{title}</p><strong>{value}</strong><small>{detail}</small></div></div>
 }
 
-function Domains() {
-  return <section className="domains card"><div className="tabs"><button className="tab active"><GlobeIcon size={16} />Domains</button><button className="tab"><Laptop size={16} />Websites</button><button className="tab"><Server size={16} />Hosting</button><button className="tab"><LockKeyhole size={16} />SSL Certificates</button></div><div className="domain-content"><div className="section-heading"><h2>All Domains</h2><button>Manage All <ChevronRight size={16} /></button></div><div className="domain-list">{domains.map((domain) => <DomainCard domain={domain} key={domain.name} />)}</div></div></section>
+function Dashboard() {
+  return <><div className="welcome"><div><p className="eyebrow">MONDAY, 24 MARCH 2025</p><h1>Good morning, Jane</h1><p className="welcome-sub">Here&apos;s what&apos;s happening with your marketing workspace.</p></div><button className="primary"><Plus size={18} /> Request a task</button></div><div className="stats"><Stat title="Active subscription" value="Growth plan" detail="Renews 29 Mar 2025" icon={CreditCard} accent="red" /><Stat title="Credits remaining" value="18.5 credits" detail="of 30 credits this month" icon={Zap} accent="orange" /><Stat title="Tasks in progress" value="4 tasks" detail="2 awaiting your review" icon={Activity} accent="blue" /><Stat title="Open tickets" value="2 tickets" detail="Latest reply 2 hours ago" icon={Headphones} accent="purple" /></div><div className="main-grid"><section className="panel card"><div className="panel-head"><div><h2>Recent tasks</h2><p>1 credit = 1 hour of completed work</p></div><button className="text-button">View all <ArrowRight size={16} /></button></div><div className="table-wrap"><table><thead><tr><th>Task</th><th>Status</th><th>Hours</th><th>Due</th><th /></tr></thead><tbody>{tasks.map((task) => <tr key={task.title}><td><div className="task-name"><span className="task-dot" /><div><strong>{task.title}</strong><small>{task.type}</small></div></div></td><td><span className={`status ${task.status.toLowerCase().replaceAll(' ', '-')}`}>{task.status}</span></td><td>{task.hours}</td><td>{task.date}</td><td><ChevronRight size={16} /></td></tr>)}</tbody></table></div><button className="mobile-view">View all tasks <ArrowRight size={16} /></button></section><section className="panel card credit-panel"><div className="panel-head"><div><h2>Credit usage</h2><p>Growth plan · 30 credits monthly</p></div><button className="more">···</button></div><div className="credit-number"><strong>11.5</strong><span>/ 30 credits used</span></div><div className="progress"><span /></div><div className="credit-meta"><span>18.5 remaining</span><span>Renews in 5 days</span></div><div className="usage-row"><span className="usage-dot red-dot" />Tasks completed <strong>9.5 hrs</strong></div><div className="usage-row"><span className="usage-dot gray-dot" />In progress <strong>2 hrs</strong></div><button className="outline-button">Manage subscription <ArrowRight size={16} /></button></section></div><div className="lower-grid"><section className="panel card"><div className="panel-head"><div><h2>Recent activity</h2><p>Updates from your workspace</p></div><button className="text-button">View all <ArrowRight size={16} /></button></div><div className="activity"><span className="activity-icon green"><CheckCircle2 size={16} /></span><div><strong>Task marked as completed</strong><p>Paid social campaign setup · 6 credits</p><small>Today, 10:42 AM</small></div></div><div className="activity"><span className="activity-icon red"><CreditCard size={16} /></span><div><strong>Subscription renewed</strong><p>Growth plan · 30 credits added</p><small>Mar 19, 2025</small></div></div></section><section className="panel card support-panel"><div className="panel-head"><div><h2>Support tickets</h2><p>We&apos;re here to help</p></div><button className="text-button">View all <ArrowRight size={16} /></button></div><div className="ticket"><span className="ticket-icon"><Headphones size={17} /></span><div><strong>#1048 · Campaign reporting question</strong><small><span className="status open-status">Open</span> Last reply 2 hours ago</small></div><ChevronRight size={16} /></div><button className="outline-button"><Plus size={16} /> Open a new ticket</button></section></div></>
 }
 
-function ActivityCard({ title, children, type }: { title: string; children: React.ReactNode; type: 'notifications' | 'activities' }) {
-  return <section className="activity-card card"><div className="activity-heading"><h2>{title}</h2><RefreshCw size={16} /></div><div className="activity-list">{children}</div><button className="view-all">View all {type} <ArrowRight size={17} /></button></section>
-}
-
-function ActivityItem({ kind, children, time }: { kind: string; children: React.ReactNode; time: string }) { return <div className="activity-item"><span className={`activity-icon ${kind}`}><RefreshCw size={16} /></span><div><p>{children}</p><small>{time}</small></div></div> }
-
-function Products() { return <aside className="right-column"><section className="products card"><h2>Manage Your Products</h2><div className="product-search"><span>Search for a domain name...</span><Search size={17} /></div>{[['VPS', Server], ['Web Hosting', Laptop], ['Domains', GlobeIcon], ['Backups', Zap]].map(([name, Icon], i) => <div className="product-line" key={name as string}><Icon size={17} /><span>{name as string}</span><small className={i === 3 ? '' : 'online'}>{i === 3 ? 'Enabled' : 'Online'}</small></div>)}<div className="explore">Explore All Products <ArrowRight size={17} /></div></section><section className="help-card card"><h2>Need Help?</h2><p>Receive exclusive ticketing support through the hub.</p><button>Contact Support</button></section><section className="help-card card"><h2>Provide Feedback?</h2><p>Tell us what you think about the hub experience and help us make it better.</p><button>Leave Feedback</button></section><button className="more-services">Explore More Services <ArrowRight size={17} /></button></aside> }
-
-export default function Page() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  return <main className="dashboard"><Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} /><div className="main-shell"><Header onMenu={() => setMenuOpen(true)} /><div className="welcome"><h1>Welcome Back, Jane!</h1><div className="welcome-actions"><button className="primary"><Plus size={18} />Add New Product</button><button><RefreshCw size={16} />Renew Now</button></div></div><div className="content"><div className="center-column"><Domains /><div className="activity-grid"><ActivityCard title="Notifications" type="notifications"><ActivityItem kind="green" time="2 hours ago · 15:12 PM">Renewal payment for premium hosting plan is due soon.</ActivityItem><ActivityItem kind="dark" time="2 days ago · 10:01 AM"><strong>Sublance.digital</strong> expires on March 29, 2025.</ActivityItem><ActivityItem kind="light" time="1 week ago · 12:00 PM">2 domains will expire in next 30 days.</ActivityItem></ActivityCard><ActivityCard title="Recent Activities" type="activities"><ActivityItem kind="purple" time="2 hours ago · 10:22 AM"><b className="tag purple">SSL</b> Purchased new SSL certificate</ActivityItem><ActivityItem kind="blue" time="2 hours ago · 10:22 AM"><b className="tag blue">Auto-renew</b> Auto-renew is enabled for vidona.com</ActivityItem><ActivityItem kind="green" time="2 hours ago · 10:22 AM"><b className="tag green">Websites</b> Domain forwarded to websites.</ActivityItem></ActivityCard></div></div><Products /></div></div></main>
-}
+export default function Page() { const [open, setOpen] = useState(false); return <main className="app"><Sidebar open={open} close={() => setOpen(false)} /><div className="shell"><Header onMenu={() => setOpen(true)} /><div className="page"><Dashboard /></div></div></main> }

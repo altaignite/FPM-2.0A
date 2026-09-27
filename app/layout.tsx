@@ -3,8 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Zygenet Dashboard',
-  description: 'Domain and hosting management dashboard',
+  title: 'First Person Marketing Dashboard',
+  description: 'Subscription, credits, tasks and support management for First Person Marketing clients.',
   generator: 'v0.app',
   icons: {
     icon: [
