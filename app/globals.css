@@ -4,13 +4,17 @@
 
 :root { color-scheme: light; --red:#d50912; --red-dark:#ae0710; --ink:#171719; --muted:#77777d; --line:#e8e8ea; --soft:#f8f8f9; --green:#138a58; }
 * { box-sizing:border-box; }
-html,body { margin:0; min-height:100%; background:#fff; color:var(--ink); font-family:Arial, Helvetica, sans-serif; }
+html,body { margin:0; min-height:100%; background:#fff; color:var(--ink); font-family:Arial, Helvetica, sans-serif; -webkit-font-smoothing:antialiased; }
+body { font-size:14px; }
+.card, .workspace, .search, .outline-button, .primary { border-radius:4px; }
+.card { box-shadow:0 1px 2px rgba(18,18,18,.025); }
 button { font:inherit; color:inherit; border:0; background:none; cursor:pointer; }
 .app { display:flex; min-height:100vh; width:100%; background:#fff; }
 .sidebar { width:256px; flex:none; min-height:100vh; border-right:1px solid var(--line); display:flex; flex-direction:column; background:#fff; z-index:20; }
 .side-head { padding:25px 25px 27px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; }
-.brand { display:flex; align-items:center; gap:9px; color:var(--red); font-size:14px; line-height:1.02; font-weight:800; letter-spacing:.3px; }
-.brand img { width:32px; height:32px; object-fit:cover; object-position:left; }
+.brand { display:flex; align-items:center; width:190px; height:54px; }
+.brand img { display:block; width:100%; height:100%; object-fit:contain; object-position:left center; }
+.nav-section { color:#a0a0a5; font-size:10px; font-weight:700; letter-spacing:1px; margin:19px 12px 8px; }
 .brand b { font-size:10px; letter-spacing:2.5px; }
 .close,.menu,.overlay { display:none; }
 .workspace-label { color:#a0a0a5; font-size:10px; font-weight:700; letter-spacing:1px; margin:26px 24px 9px; }
@@ -32,4 +36,4 @@ button { font:inherit; color:inherit; border:0; background:none; cursor:pointer;
 .lower-grid { margin-top:22px; }.activity,.ticket { display:flex; align-items:flex-start; gap:11px; padding:15px 20px; border-top:1px solid #f0f0f0; }.activity-icon,.ticket-icon { width:30px; height:30px; border-radius:7px; display:grid; place-items:center; flex:none; }.activity-icon.green { color:var(--green); background:#e2f8ec; }.activity-icon.red,.ticket-icon { color:var(--red); background:#ffe7e7; }.activity strong,.ticket strong { display:block; font-size:12px; font-weight:500; }.activity p { color:#777; font-size:11px; margin:4px 0; }.activity small,.ticket small { color:#999; font-size:10px; }.ticket > svg { margin-left:auto; color:#aaa; }.open-status { color:var(--green); background:#e1f7ec; margin-right:7px; padding:3px 6px; border-radius:10px; }.support-panel .outline-button { margin:4px 20px 18px; width:calc(100% - 40px); }
 @media (max-width:1050px) { .stats { grid-template-columns:repeat(2,1fr); }.page { padding:28px 24px 40px; }.header { padding:0 24px; } }
 @media (max-width:760px) { .sidebar { position:fixed; left:-275px; top:0; transition:left .2s ease; box-shadow:10px 0 30px #0002; }.sidebar.open { left:0; }.overlay.show { display:block; position:fixed; inset:0; background:#0005; z-index:10; }.close,.menu { display:grid; place-items:center; }.side-head { align-items:start; }.header { height:62px; padding:0 16px; gap:12px; }.header-user,.header-right > .icon-button:first-child { display:none; }.search { font-size:12px; }.page { padding:23px 16px 35px; }.welcome { display:block; }.welcome h1 { font-size:27px; }.welcome .primary { margin-top:18px; width:100%; justify-content:center; }.stats { grid-template-columns:1fr 1fr; gap:10px; }.stat { padding:14px; gap:9px; }.stat strong { font-size:16px; }.stat small { line-height:1.4; }.main-grid,.lower-grid { grid-template-columns:1fr; gap:16px; }.table-wrap { display:none; }.mobile-view { display:flex; align-items:center; gap:7px; color:var(--red); padding:15px 20px; font-size:12px; }.credit-panel { min-height:0; } }
-@media (max-width:430px) { .stats { grid-template-columns:1fr; }.stat { align-items:center; }.welcome h1 { font-size:24px; }.welcome-sub { line-height:1.4; }.brand img { width:30px; height:30px; } }
+@media (max-width:430px) { .stats { grid-template-columns:1fr; }.stat { align-items:center; }.welcome h1 { font-size:24px; }.welcome-sub { line-height:1.4; }.brand { width:178px; height:50px; } }

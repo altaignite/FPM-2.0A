@@ -24,7 +24,7 @@ const tasks = [
 ]
 
 function Brand() {
-  return <div className="brand"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_1712-DPupM5FLesuxf6YstfDbnd9g8opHU7.png" alt="First Person Marketing" /><span>FIRST PERSON<br /><b>MARKETING</b></span></div>
+  return <div className="brand"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_1712-DPupM5FLesuxf6YstfDbnd9g8opHU7.png" alt="First Person Marketing" /></div>
 }
 
 function Sidebar({ open, close }: { open: boolean; close: () => void }) {
